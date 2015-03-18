@@ -2,21 +2,28 @@ require_relative "./conway.rb"
 
 describe "Conway" do
 
-  before(:all) { @conway = Conway.new(20) }
+  before(:all) do
+    @size = 20
+    @conway = Conway.new(@size)
+  end
 
   describe "#initialize(size)" do
     it "assigns user-specified size" do
-      expect(@conway.size).to eq(20)
+      expect(@conway.size).to eq(@size)
     end
     describe "grid" do
       it "has height equal to size" do
-        expect(@conway.grid.length).to eq(20)
+        expect(@conway.grid.length).to eq(@size)
       end
       it "has width equal to size" do
-        expect(@conway.grid.first.length).to eq(20)
+        expect(@conway.grid.first.length).to eq(@size)
       end
       it "each cell is an instance of the Bacteria class" do
         expect(@conway.grid.first.first).to be_a(Bacteria)
+      end
+      it "has dead and alive bacteria" do
+        live_bacteria_count = @conway.grid.flatten.select { |bacteria| bacteria.alive}.uniq.length
+        expect(live_bacteria_count).to be < (@size ** 2)
       end
     end
   end
