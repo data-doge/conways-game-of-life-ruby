@@ -29,6 +29,32 @@ describe "Conway" do
   end
 
   describe "#in_bounds?(r,c)" do
+    describe "with a size of 20" do
+      it "19,19 should be in bounds" do
+        expect(@conway.in_bounds?(19,19)).to be_truthy
+      end
+      it " 0, 0 should be in bounds" do
+        expect(@conway.in_bounds?(0,0)).to be_truthy
+      end
+      it " 0,19 should be in bounds" do
+        expect(@conway.in_bounds?(0,19)).to be_truthy
+      end
+      it "19, 0 should be in bounds" do
+        expect(@conway.in_bounds?(19,0)).to be_truthy
+      end
+      it "20, 0 should be out of bounds" do
+        expect(@conway.in_bounds?(20,0)).to be_falsey
+      end
+      it " 0,20 should be out of bounds" do
+        expect(@conway.in_bounds?(0,20)).to be_falsey
+      end
+      it " 0,-1 should be out of bounds" do
+        expect(@conway.in_bounds?(0,-1)).to be_falsey
+      end
+      it "-1, 0 should be out of bounds" do
+        expect(@conway.in_bounds?(-1,0)).to be_falsey
+      end
+    end
   end
 
   describe "#tally_neighbors_for!(r,c)" do
