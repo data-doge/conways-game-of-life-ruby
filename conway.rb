@@ -4,9 +4,9 @@ class Conway
 
   attr_accessor :grid, :size, :directions
 
-  def initialize(size = 20)
+  def initialize(size = 20, probability = 0.50)
     @size = size
-    @grid = Array.new(size) { Array.new(size) { Bacteria.new(0.95) } }
+    @grid = Array.new(size) { Array.new(size) { Bacteria.new(probability) } }
     @directions = [ [-1,-1], [-1, 0], [-1, 1], [ 0,-1], [ 0, 1], [ 1,-1], [ 1, 0], [ 1, 1] ]
   end
 
@@ -32,6 +32,7 @@ class Conway
   end
 
   def tally_neighbors_for!(r,c)
+    @grid[r][c].neighbors = 0
     @directions.each do |i,j|
       if in_bounds?(r + i, c + j) && alive?(r + i, c + j)
         @grid[r][c].neighbors += 1
@@ -51,9 +52,22 @@ class Conway
     r.between?(0,@size - 1) && c.between?(0,@size - 1)
   end
 
-  def print
+  def show
     system('clear')
-    @grid.each { |row| p row.map { |cell| cell.alive ? "X" : " "} }
+    @grid.each do |row|
+      row.each do |cell|
+        print cell.alive ? "X|" : " |"
+      end
+      puts
+    end
+  end
+
+  def update_cells!
+    @grid.each_with_index do |row,r|
+      row.each_with_index do |cell,c|
+        update_cell!(r,c)
+      end
+    end
   end
 
 end

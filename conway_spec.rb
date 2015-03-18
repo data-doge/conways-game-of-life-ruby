@@ -104,6 +104,10 @@ describe "Conway" do
       @mini_conway.tally_neighbors_for!(2,3)
       expect(@mini_conway.grid[2][3].neighbors).to eq(3)
     end
+    it "resets a cells number of neighbors before recalculating" do
+      @mini_conway.tally_neighbors_for!(2,3)
+      expect(@mini_conway.grid[2][3].neighbors).to eq(3)
+    end
   end
 
   describe "#overpopulated?(r,c)" do
