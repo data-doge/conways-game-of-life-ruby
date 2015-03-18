@@ -84,9 +84,35 @@ describe "Conway" do
   end
 
   describe "#tally_neighbors_for!(r,c)" do
+    it "bacteria at 3,2 should have 4 neighbors" do
+      @mini_conway.tally_neighbors_for!(3,2)
+      expect(@mini_conway.grid[3][2].neighbors).to eq(4)
+    end
+    it "bacteria at 0,3 should have 2 neighbors" do
+      @mini_conway.tally_neighbors_for!(0,3)
+      expect(@mini_conway.grid[0][3].neighbors).to eq(2)
+    end
+    it "bacteria at 3,0 should have 3 neighbors" do
+      @mini_conway.tally_neighbors_for!(3,0)
+      expect(@mini_conway.grid[3][0].neighbors).to eq(3)
+    end
+    it "bacteria at 0,0 should have 1 neighbor" do
+      @mini_conway.tally_neighbors_for!(0,0)
+      expect(@mini_conway.grid[0][0].neighbors).to eq(1)
+    end
+    it "bacteria at 2,3 should have 3 neighbors" do
+      @mini_conway.tally_neighbors_for!(2,3)
+      expect(@mini_conway.grid[2][3].neighbors).to eq(3)
+    end
   end
 
   describe "#overpopulated?(r,c)" do
+    it "returns true if bacteria at r,c has 3 or more neighbors" do
+      expect(@mini_conway.overpopulated?(3,2)).to be_truthy
+    end
+    it "returns false if bacteria at r,c has less than 4 neighbors" do
+      expect(@mini_conway.overpopulated?(0,3)).to be_falsey
+    end
   end
 
   describe "#underpopulated?(r,c)" do
