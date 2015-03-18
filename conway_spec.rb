@@ -134,6 +134,27 @@ describe "Conway" do
   end
 
   describe "update_cell!(r,c)" do
+
+    it "if live bacteria is in an overpopulated cell, bacteria dies" do
+      @mini_conway.update_cell!(3,2)
+      expect(@mini_conway.grid[3][2].alive).to be_falsey
+    end
+
+    it "if live bacteria is in an underpopulated cell, bacteria dies" do
+      @mini_conway.update_cell!(0,0)
+      expect(@mini_conway.grid[0][0].alive).to be_falsey
+    end
+
+    it "if dead bacteria is ready for sexytime, bacteria is resurrected" do
+      @mini_conway.update_cell!(2,3)
+      expect(@mini_conway.grid[2][3].alive).to be_truthy
+    end
+
+    it "if live bacteria is neither overpopulated or underpopulated, it lives on" do
+      @mini_conway.update_cell!(2,3)
+      expect(@mini_conway.grid[2][3].alive).to be_truthy
+    end
+
   end
 
 end
