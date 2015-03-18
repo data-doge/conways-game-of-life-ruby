@@ -125,6 +125,12 @@ describe "Conway" do
   end
 
   describe "#sexytime?(r,c)" do
+    it "returns true if bacteria has exactly 3 neighbors" do
+      expect(@mini_conway.sexytime?(2,3)).to be_truthy
+    end
+    it "otherwise, returns false" do
+      expect(@mini_conway.sexytime?(0,0)).to be_falsey
+    end
   end
 
   describe "update_cell!(r,c)" do
