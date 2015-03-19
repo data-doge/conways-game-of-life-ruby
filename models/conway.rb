@@ -1,4 +1,4 @@
-require_relative './bacteria.rb'
+require_relative './cell.rb'
 
 class Conway
 
@@ -6,7 +6,7 @@ class Conway
 
   def initialize(size = 20, probability = 0.50)
     @size = size
-    @grid = Array.new(size) { Array.new(size) { Bacteria.new(probability) } }
+    @grid = Array.new(size) { Array.new(size) { Cell.new(probability) } }
     @directions = [ [-1,-1], [-1, 0], [-1, 1], [ 0,-1], [ 0, 1], [ 1,-1], [ 1, 0], [ 1, 1] ]
   end
 

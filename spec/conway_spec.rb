@@ -7,10 +7,10 @@ describe "Conway" do
     @conway = Conway.new(@size)
     @mini_conway = Conway.new(4)
     @mini_conway.grid = [
-      [Bacteria.new(0), Bacteria.new(0), Bacteria.new(0), Bacteria.new(0)],
-      [Bacteria.new(1), Bacteria.new(1), Bacteria.new(1), Bacteria.new(0)],
-      [Bacteria.new(0), Bacteria.new(0), Bacteria.new(0), Bacteria.new(1)],
-      [Bacteria.new(0), Bacteria.new(0), Bacteria.new(1), Bacteria.new(0)]
+      [Cell.new(0), Cell.new(0), Cell.new(0), Cell.new(0)],
+      [Cell.new(1), Cell.new(1), Cell.new(1), Cell.new(0)],
+      [Cell.new(0), Cell.new(0), Cell.new(0), Cell.new(1)],
+      [Cell.new(0), Cell.new(0), Cell.new(1), Cell.new(0)]
     ]
   end
 
@@ -38,13 +38,13 @@ describe "Conway" do
         expect(@conway.grid.first.length).to eq(@size)
       end
 
-      it "each cell is an instance of the Bacteria class" do
-        expect(@conway.grid.first.first).to be_a(Bacteria)
+      it "each cell is an instance of the Cell class" do
+        expect(@conway.grid.first.first).to be_a(Cell)
       end
 
-      it "has dead and alive bacteria" do
-        live_bacteria_count = @conway.grid.flatten.select { |bacteria| bacteria.alive}.uniq.length
-        expect(live_bacteria_count).to be < (@size ** 2)
+      it "has dead and alive cell" do
+        live_cell_count = @conway.grid.flatten.select { |cell| cell.alive}.uniq.length
+        expect(live_cell_count).to be < (@size ** 2)
       end
 
     end
@@ -101,11 +101,11 @@ describe "Conway" do
 
   describe "#alive?(r,c)" do
 
-    it "returns true if bacteria at r,c is alive" do
+    it "returns true if cell at r,c is alive" do
       expect(@mini_conway.alive?(0,0)).to be_truthy
     end
 
-    it "returns false if bacteria at r,c is dead" do
+    it "returns false if cell at r,c is dead" do
       expect(@mini_conway.alive?(1,0)).to be_falsey
     end
 
@@ -113,27 +113,27 @@ describe "Conway" do
 
   describe "#tally_neighbors_for!(r,c)" do
 
-    it "assigns 4 neighbors to bacteria at 3,2" do
+    it "assigns 4 neighbors to cell at 3,2" do
       @mini_conway.tally_neighbors_for!(3,2)
       expect(@mini_conway.grid[3][2].neighbors).to eq(4)
     end
 
-    it "assigns 2 neighbors to bacteria at 0,3" do
+    it "assigns 2 neighbors to cell at 0,3" do
       @mini_conway.tally_neighbors_for!(0,3)
       expect(@mini_conway.grid[0][3].neighbors).to eq(2)
     end
 
-    it "assigns 3 neighbors to bacteria at 3,0" do
+    it "assigns 3 neighbors to cell at 3,0" do
       @mini_conway.tally_neighbors_for!(3,0)
       expect(@mini_conway.grid[3][0].neighbors).to eq(3)
     end
 
-    it "assigns 1 neighbor to bacteria at 0,0" do
+    it "assigns 1 neighbor to cell at 0,0" do
       @mini_conway.tally_neighbors_for!(0,0)
       expect(@mini_conway.grid[0][0].neighbors).to eq(1)
     end
 
-    it "assigns 3 neighbors to bacteria at 2,3" do
+    it "assigns 3 neighbors to cell at 2,3" do
       @mini_conway.tally_neighbors_for!(2,3)
       expect(@mini_conway.grid[2][3].neighbors).to eq(3)
     end
@@ -147,11 +147,11 @@ describe "Conway" do
 
   describe "#overpopulated?(r,c)" do
 
-    it "returns true if bacteria at r,c has 3 or more neighbors" do
+    it "returns true if cell at r,c has 3 or more neighbors" do
       expect(@mini_conway.overpopulated?(3,2)).to be_truthy
     end
 
-    it "returns false if bacteria at r,c has less than 4 neighbors" do
+    it "returns false if cell at r,c has less than 4 neighbors" do
       expect(@mini_conway.overpopulated?(0,3)).to be_falsey
     end
 
@@ -159,11 +159,11 @@ describe "Conway" do
 
   describe "#underpopulated?(r,c)" do
 
-    it "returns true if bacteria at r,c has less than 2 neighbors" do
+    it "returns true if cell at r,c has less than 2 neighbors" do
       expect(@mini_conway.underpopulated?(0,0)).to be_truthy
     end
 
-    it "returns false if bacteria at r,c has 2 or more neighbors" do
+    it "returns false if cell at r,c has 2 or more neighbors" do
       expect(@mini_conway.underpopulated?(3,2)).to be_falsey
     end
 
@@ -171,7 +171,7 @@ describe "Conway" do
 
   describe "#sexytime?(r,c)" do
 
-    it "returns true if bacteria has exactly 3 neighbors" do
+    it "returns true if cell has exactly 3 neighbors" do
       expect(@mini_conway.sexytime?(2,3)).to be_truthy
     end
 
@@ -183,22 +183,22 @@ describe "Conway" do
 
   describe "#update_cell!(r,c)" do
 
-    it "if live bacteria is in an overpopulated cell, bacteria dies" do
+    it "if live cell is in an overpopulated cell, cell dies" do
       @mini_conway.update_cell!(3,2)
       expect(@mini_conway.grid[3][2].alive).to be_falsey
     end
 
-    it "if live bacteria is in an underpopulated cell, bacteria dies" do
+    it "if live cell is in an underpopulated cell, cell dies" do
       @mini_conway.update_cell!(0,0)
       expect(@mini_conway.grid[0][0].alive).to be_falsey
     end
 
-    it "if dead bacteria is ready for sexytime, bacteria is resurrected" do
+    it "if dead cell is ready for sexytime, cell is resurrected" do
       @mini_conway.update_cell!(2,3)
       expect(@mini_conway.grid[2][3].alive).to be_truthy
     end
 
-    it "if live bacteria is neither overpopulated or underpopulated, it lives on" do
+    it "if live cell is neither overpopulated or underpopulated, it lives on" do
       @mini_conway.update_cell!(2,3)
       expect(@mini_conway.grid[2][3].alive).to be_truthy
     end

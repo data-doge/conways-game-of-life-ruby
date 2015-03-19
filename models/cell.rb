@@ -1,4 +1,4 @@
-class Bacteria
+class Cell
 
   attr_accessor :alive, :neighbors
 
