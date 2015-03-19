@@ -12,10 +12,12 @@ Every turn, the grid is updated in accordance with these four rules:
 
 ## Usage
 
-Watch the [demo](https://www.youtube.com/watch?v=M0n2aZBnAYM).
-
 Assuming you have ruby + rspec installed on your machine,
 - clone this repo
 - run specs: ```rspec ./spec```
 - run program: ```ruby conways_game_of_life.rb```
 - stop program: ^ + c
+
+Here's a [demo](https://www.youtube.com/watch?v=M0n2aZBnAYM).
+
+<img src='http://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Glider.svg/220px-Glider.svg.png'/>
