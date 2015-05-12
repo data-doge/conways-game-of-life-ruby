@@ -16,6 +16,7 @@ Assuming you have ruby + rspec installed on your machine,
 - clone this repo
 - run specs: ```rspec ./spec```
 - run program: ```ruby conways_game_of_life.rb```
+- resize terminal window so that the entire grid fits on the screen
 - stop program: ^ + c
 
 Here's a [demo](https://www.youtube.com/watch?v=M0n2aZBnAYM).
